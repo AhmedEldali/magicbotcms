@@ -69,6 +69,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    clients: Client;
+    ai_bots: AiBot;
+    messages: Message;
+    invoices: Invoice;
+    ai_team_members: AiTeamMember;
+    telegram_bots: TelegramBot;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +83,12 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
+    ai_bots: AiBotsSelect<false> | AiBotsSelect<true>;
+    messages: MessagesSelect<false> | MessagesSelect<true>;
+    invoices: InvoicesSelect<false> | InvoicesSelect<true>;
+    ai_team_members: AiTeamMembersSelect<false> | AiTeamMembersSelect<true>;
+    telegram_bots: TelegramBotsSelect<false> | TelegramBotsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -150,6 +162,102 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Client information
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: number;
+  name: string;
+  email?: string | null;
+  phone?: string | null;
+  business_name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_bots".
+ */
+export interface AiBot {
+  id: number;
+  bot_name: string;
+  service_type?: string | null;
+  linked_client?: (number | null) | Client;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Messages sent by bots
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages".
+ */
+export interface Message {
+  id: number;
+  message_text: string;
+  platform: 'whatsapp' | 'telegram';
+  sent_at?: string | null;
+  related_bot?: (number | null) | AiBot;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Invoices for clients
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "invoices".
+ */
+export interface Invoice {
+  id: number;
+  client: number | Client;
+  amount: number;
+  status: 'pending' | 'paid' | 'overdue';
+  due_date?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * AI team members
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_team_members".
+ */
+export interface AiTeamMember {
+  id: number;
+  name: string;
+  role?: string | null;
+  /**
+   * Store skills as a JSON array or object (e.g., ["Python", "NLP"])
+   */
+  skills?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  active?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Stores Telegram bot tokens for each client
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "telegram_bots".
+ */
+export interface TelegramBot {
+  id: number;
+  token: string;
+  linked_client?: (number | null) | Client;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
@@ -163,6 +271,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: number | Client;
+      } | null)
+    | ({
+        relationTo: 'ai_bots';
+        value: number | AiBot;
+      } | null)
+    | ({
+        relationTo: 'messages';
+        value: number | Message;
+      } | null)
+    | ({
+        relationTo: 'invoices';
+        value: number | Invoice;
+      } | null)
+    | ({
+        relationTo: 'ai_team_members';
+        value: number | AiTeamMember;
+      } | null)
+    | ({
+        relationTo: 'telegram_bots';
+        value: number | TelegramBot;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -238,6 +370,75 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  business_name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_bots_select".
+ */
+export interface AiBotsSelect<T extends boolean = true> {
+  bot_name?: T;
+  service_type?: T;
+  linked_client?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages_select".
+ */
+export interface MessagesSelect<T extends boolean = true> {
+  message_text?: T;
+  platform?: T;
+  sent_at?: T;
+  related_bot?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "invoices_select".
+ */
+export interface InvoicesSelect<T extends boolean = true> {
+  client?: T;
+  amount?: T;
+  status?: T;
+  due_date?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_team_members_select".
+ */
+export interface AiTeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  skills?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "telegram_bots_select".
+ */
+export interface TelegramBotsSelect<T extends boolean = true> {
+  token?: T;
+  linked_client?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
