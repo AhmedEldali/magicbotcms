@@ -18,6 +18,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "workspace:*",
     "@payloadcms/next": "workspace:*",
     "@payloadcms/payload-cloud": "workspace:*",
     "@payloadcms/richtext-lexical": "workspace:*",
@@ -27,9 +28,9 @@
     "graphql": "^16.8.1",
     "next": "15.3.2",
     "payload": "workspace:*",
-    "react": "19.1.0",
-    "sharp": "0.32.6",
-    "@payloadcms/db-postgres": "workspace:*"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@playwright/test": "1.50.0",
