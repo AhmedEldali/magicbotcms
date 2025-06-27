@@ -2050,7 +2050,7 @@
   resolved "https://registry.yarnpkg.com/@nolyfill/is-core-module/-/is-core-module-1.0.39.tgz#3dc35ba0f1e66b403c00b39344f870298ebb1c8e"
   integrity sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==
 
-"@payloadcms/db-postgres@workspace:*":
+"@payloadcms/db-postgres@^3.43.0":
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/@payloadcms/db-postgres/-/db-postgres-3.43.0.tgz#f7790df1a36eb346e8891f6dbf0436f8475dc4f5"
   integrity sha512-KfeAiNj0vvUuMjMMSqK14wwFPvpY0ySehZYLUiE8IkhUd6O5je5tDoVBELUyV5IxuCE+udE4yVZ6BddvCbWSNg==
@@ -2094,7 +2094,7 @@
     ts-essentials "10.0.3"
     tsx "4.19.2"
 
-"@payloadcms/next@workspace:*":
+"@payloadcms/next@^3.43.0":
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/@payloadcms/next/-/next-3.43.0.tgz#191d255b8e13cf222315cd5fe314f53820aaf71a"
   integrity sha512-2Aa5phgcR/d3iMyLXQyPP2Po/z/L9rQrxa47nQ2/VyLVM9VCxi4eRdMl1ecIipUykHbH/oxqgKtuoXwldBkTdQ==
@@ -2114,7 +2114,7 @@
     sass "1.77.4"
     uuid "10.0.0"
 
-"@payloadcms/payload-cloud@workspace:*":
+"@payloadcms/payload-cloud@^3.43.0":
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/@payloadcms/payload-cloud/-/payload-cloud-3.43.0.tgz#f06b3ede75bc47d6daa54585d3da52cec42e7d4d"
   integrity sha512-XSLAvUypSfoWnhLmEYrZ2pkpD1QtEDqw7jWhtA3NtnKd25GHlh5D7gT2/++f8vSWgABjPyy5Bjo7VN9CmB3ywA==
@@ -2127,7 +2127,7 @@
     amazon-cognito-identity-js "^6.1.2"
     nodemailer "6.9.16"
 
-"@payloadcms/richtext-lexical@workspace:*":
+"@payloadcms/richtext-lexical@^3.43.0":
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/@payloadcms/richtext-lexical/-/richtext-lexical-3.43.0.tgz#9fbb4436c7dfdbce305e63ffadaf781a70e30312"
   integrity sha512-U4OhTntV/fycvOLM9QyLtKRfHM45iRUi47cIb1gmM92vdcF5BDe/FSrQZ4UzKEvbV/BmmbAnEUozzoW9rQvYvg==
@@ -2167,7 +2167,7 @@
   dependencies:
     date-fns "4.1.0"
 
-"@payloadcms/ui@3.43.0", "@payloadcms/ui@workspace:*":
+"@payloadcms/ui@3.43.0", "@payloadcms/ui@^3.43.0":
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/@payloadcms/ui/-/ui-3.43.0.tgz#bb3ed49011885ea5aaf3e5ae440c0a774da9b6f5"
   integrity sha512-EHkiIhn6f1BuWmT+XMR1cBrmQFkkqZAiKLU7l6pTiaIB9zB8bMzVPUCc/EjutgofuKCPbwRDoYZ6wIiumkwb+g==
@@ -6228,7 +6228,7 @@ pathval@^2.0.0:
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-2.0.1.tgz#8855c5a2899af072d6ac05d11e46045ad0dc605d"
   integrity sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==
 
-"payload@workspace:*":
+payload@^3.43.0:
   version "3.43.0"
   resolved "https://registry.yarnpkg.com/payload/-/payload-3.43.0.tgz#ad93fe6fd51c795c33c634a9b8f62d54c441d9fe"
   integrity sha512-/hA51kk9rZzc2zkPSR7sIOPVk6nUsfEUowIOAqBKrwxWyHAhFvF+mCsQv4ftk4dLY+AuBEaE9MPkv35LEAJDcQ==
