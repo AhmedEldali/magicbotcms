@@ -39,7 +39,7 @@ const Invoices: CollectionConfig = {
       label: 'Due Date',
       admin: {
         date: {
-          pickerAppearance: 'day', // Just date picker
+          pickerAppearance: 'dayOnly', // Just date picker
         },
       },
     },

@@ -1,6 +1,6 @@
 // D:\Magicbot\Backend\src\collections\AiBots.ts (or wherever your collection config is)
 
-import { CollectionConfig } from 'payload'
+import { CollectionConfig } from 'payload/types'
 
 const AiBots: CollectionConfig = {
   slug: 'ai_bots',

@@ -1,9 +1,9 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload/types'
 
 const Messages: CollectionConfig = {
   slug: 'messages',
   admin: {
-    description: "Messages sent by bots",
+    description: 'Messages sent by bots',
     defaultColumns: ['message_text', 'platform', 'sent_at'],
   },
   fields: [
@@ -34,15 +34,15 @@ const Messages: CollectionConfig = {
       },
     },
     {
-        name: 'related_bot', // Assuming messages are sent by a specific bot
-        type: 'relationship',
-        relationTo: 'ai_bots',
-        hasMany: false,
-        label: 'Related Bot',
-        // This implicitly allows messages to be linked to an AI bot.
-        // You can add 'required: true' if every message MUST have a bot.
-    }
+      name: 'related_bot', // Assuming messages are sent by a specific bot
+      type: 'relationship',
+      relationTo: 'ai_bots',
+      hasMany: false,
+      label: 'Related Bot',
+      // This implicitly allows messages to be linked to an AI bot.
+      // You can add 'required: true' if every message MUST have a bot.
+    },
   ],
-};
+}
 
-export default Messages;
+export default Messages
