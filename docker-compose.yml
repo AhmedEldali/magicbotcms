@@ -9,35 +9,41 @@ services:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
+    # The pnpm install command will run every time the container starts.
+    # For dev, this is usually fine. For production, you'd typically run pnpm install during the Dockerfile build step.
     command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
     depends_on:
-      - mongo
-      # - postgres
+      # - mongo # <--- COMMENT OUT OR REMOVE THIS LINE
+      - postgres # <--- UNCOMMENT THIS LINE
     env_file:
       - .env
 
-  # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
-
-  # Uncomment the following to use postgres
-  # postgres:
-  #   restart: always
-  #   image: postgres:latest
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
+  # Disable MongoDB service
+  # mongo: # <--- COMMENT OUT OR REMOVE THIS ENTIRE SERVICE BLOCK
+  #   image: mongo:latest
   #   ports:
-  #     - "5432:5432"
+  #     - '27017:27017'
+  #   command:
+  #     - --storageEngine=wiredTiger
+  #   volumes:
+  #     - data:/data/db
+  #   logging:
+  #     driver: none
+
+  # Uncomment the following to use postgres (as you configured in payload.config.ts)
+  postgres: # <--- THIS IS YOUR POSTGRES SERVICE NAME
+    restart: always
+    image: postgres:latest
+    environment: # <--- IMPORTANT: Add environment variables for PostgreSQL user/password
+      POSTGRES_USER: payload_user # As seen in your pgAdmin image
+      POSTGRES_PASSWORD: your_strong_postgres_password # <-- REPLACE WITH A REAL PASSWORD!
+      POSTGRES_DB: magicbotcms # As seen in your pgAdmin image
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
-  data:
-  # pgdata:
+  data: # <--- You might remove this if no other service uses it
+  pgdata: # <--- UNCOMMENT THIS LINE
   node_modules:
