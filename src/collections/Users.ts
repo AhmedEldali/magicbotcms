@@ -28,7 +28,14 @@ export const Users: CollectionConfig = {
       // Only admins can create users. If req.user is undefined, it's not an admin.
       return !!req.user && req.user.role === 'admin'
     },
-    update: ({ req, data }: { req: PayloadRequest; data: { id?: string | number } }) => {
+    // FIX STARTS HERE
+    update: ({
+      req,
+      data,
+    }: {
+      req: PayloadRequest
+      data: { id?: string | number } | undefined | null
+    }) => {
       // First, check if req.user exists at all
       if (!req.user) {
         return false // No user logged in, cannot update
@@ -41,12 +48,20 @@ export const Users: CollectionConfig = {
 
       // If user is a client, allow update ONLY if they are updating their own record
       if (req.user.role === 'client') {
-        return String(req.user.id) === String(data.id)
+        // IMPORTANT: Check if data exists AND data.id exists before trying to access data.id
+        if (data && data.id) {
+          // This is the crucial check
+          return String(req.user.id) === String(data.id)
+        }
+        // If data or data.id is missing, it means this is not a specific update operation
+        // that a client user should be allowed for. Deny access.
+        return false
       }
 
       // Deny by default for any other role or unhandled case
       return false
     },
+    // FIX ENDS HERE
     delete: ({ req }: { req: PayloadRequest }) => {
       // Only admins can delete users. If req.user is undefined, it's not an admin.
       return !!req.user && req.user.role === 'admin'
