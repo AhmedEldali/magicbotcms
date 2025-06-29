@@ -108,7 +108,7 @@ export const Users: CollectionConfig = {
     ],
 
     beforeChange: [
-      ({ req, data }) => {
+      ({ req, data }: { req: PayloadRequest; data: Record<string, unknown> }) => {
         // Ensure role stays 'client' for non-admins
         if (req.user?.role !== 'admin') {
           data.role = 'client'

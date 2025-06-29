@@ -21,12 +21,13 @@ export default async function Layout({ children }: Args) {
     'use server'
     return handleServerFunctions({
       ...args,
-      config,
+      config, // <-- config is used here, on the server-side
       importMap,
     })
   }
 
   return (
+    // Ensure 'config' prop is NOT present here.
     <RootLayout importMap={importMap} serverFunction={serverFunction}>
       {children}
     </RootLayout>
