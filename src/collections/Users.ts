@@ -22,8 +22,10 @@ export const Users: CollectionConfig = {
           or: [{ id: { equals: req.user.id } }, { client: { equals: userClientId } }],
         }
       }
+      // ADD THIS LINE: Explicitly deny access by default
+      return false
     },
-    // FIX STARTS HERE
+    // The rest of your collection config is good:
     update: ({
       req,
       data,
@@ -31,34 +33,21 @@ export const Users: CollectionConfig = {
       req: PayloadRequest
       data: { id?: string | number } | undefined | null
     }) => {
-      // First, check if req.user exists at all
       if (!req.user) {
-        return false // No user logged in, cannot update
+        return false
       }
-
-      // If user is an admin, allow update
       if (req.user.role === 'admin') {
         return true
       }
-
-      // If user is a client, allow update ONLY if they are updating their own record
       if (req.user.role === 'client') {
-        // IMPORTANT: Check if data exists AND data.id exists before trying to access data.id
         if (data && data.id) {
-          // This is the crucial check
           return String(req.user.id) === String(data.id)
         }
-        // If data or data.id is missing, it means this is not a specific update operation
-        // that a client user should be allowed for. Deny access.
         return false
       }
-
-      // Deny by default for any other role or unhandled case
       return false
     },
-    // FIX ENDS HERE
     delete: ({ req }: { req: PayloadRequest }) => {
-      // Only admins can delete users. If req.user is undefined, it's not an admin.
       return !!req.user && req.user.role === 'admin'
     },
   },
@@ -73,7 +62,7 @@ export const Users: CollectionConfig = {
       defaultValue: 'client',
       required: true,
       admin: {
-        readOnly: ({ req }: { req: PayloadRequest }) => !req.user || req.user.role !== 'admin', // Added !req.user check
+        readOnly: ({ req }: { req: PayloadRequest }) => !req.user || req.user.role !== 'admin',
       },
     },
     {
@@ -84,7 +73,7 @@ export const Users: CollectionConfig = {
       hasMany: false,
       admin: {
         readOnly: ({ req }: { req: PayloadRequest }) =>
-          !req.user || (req.user && req.user.role === 'client'), // Added !req.user check
+          !req.user || (req.user && req.user.role === 'client'),
       },
       hooks: {
         beforeChange: [
