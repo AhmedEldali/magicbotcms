@@ -22,11 +22,6 @@ export const Users: CollectionConfig = {
           or: [{ id: { equals: req.user.id } }, { client: { equals: userClientId } }],
         }
       }
-      return false // Deny access by default if no user or no matching role/client
-    },
-    create: ({ req }: { req: PayloadRequest }) => {
-      // Only admins can create users. If req.user is undefined, it's not an admin.
-      return !!req.user && req.user.role === 'admin'
     },
     // FIX STARTS HERE
     update: ({
